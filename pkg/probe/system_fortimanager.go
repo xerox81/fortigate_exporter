@@ -8,9 +8,9 @@ import (
 )
 
 type SystemFortimanagerResults struct {
-	Mode            string `json:"mode"`
-	Status_ID       int    `json:"fortimanager_status_id"`
-	Registration_ID int    `json:"fortimanager_registration_status_id"`
+	Mode         string `json:"mode"`
+	Status       string `json:"fortimanager_status"`
+	Registration string `json:"fortimanager_registration_status"`
 }
 
 type SystemFortimanagerStatus struct {
@@ -41,36 +41,36 @@ func probeSystemFortimanagerStatus(c http.FortiHTTP, meta *TargetMetadata) ([]pr
 	m := []prometheus.Metric{}
 	for _, r := range res {
 		StatusDown, StatusHandshake, StatusUp := 0.0, 0.0, 0.0
-		switch r.Results.Status_ID {
-		case 0:
+		switch r.Results.Status {
+		case "down":
 			// No management Tunnel
 			StatusDown = 1.0
 			break
-		case 1:
+		case "handshake":
 			// Management tunnel establishment in progress
 			StatusHandshake = 1.0
 			break
-		case 2:
+		case "up":
 			// Management tunnel is establised
 			StatusUp = 1.0
 			break
 		}
 
 		RegistrationUnknown, RegistrationInProgress, RegistrationRegistered, RegistrationUnregistered := 0.0, 0.0, 0.0, 0.0
-		switch r.Results.Registration_ID {
-		case 0:
+		switch r.Results.Registration {
+		case "unknown":
 			// FMG does not know about the device
 			RegistrationUnknown = 1.0
 			break
-		case 1:
+		case "in_progress":
 			// FMG does know the device, but it is not yet fully saved in the list of unregistered devices
 			RegistrationInProgress = 1.0
 			break
-		case 2:
+		case "registered":
 			// FMG does know the device, and device is authorized
 			RegistrationRegistered = 1.0
 			break
-		case 3:
+		case "unregistered":
 			// FMG does know the device, but it is not yet authorized
 			RegistrationUnregistered = 1.0
 			break

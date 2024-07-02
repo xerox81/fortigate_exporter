@@ -5,8 +5,8 @@
     "results":{
       "mode":"normal",
       "server":"1.2.3.4",
-      "fortimanager_status_id":2,
-      "fortimanager_registration_status_id":2
+      "fortimanager_status":"up",
+      "fortimanager_registration_status":"registered"
     },
     "vdom":"root",
     "path":"system",
@@ -22,8 +22,8 @@
     "results":{
       "mode":"normal",
       "server":"1.2.3.5",
-      "fortimanager_status_id":2,
-      "fortimanager_registration_status_id":2
+      "fortimanager_status":"up",
+      "fortimanager_registration_status":"registered"
     },
     "vdom":"VDOM1",
     "path":"system",
