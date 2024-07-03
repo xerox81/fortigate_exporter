@@ -22,12 +22,12 @@ func probeSystemFortimanagerStatus(c http.FortiHTTP, meta *TargetMetadata) ([]pr
 	var (
 		FortimanStat_id = prometheus.NewDesc(
 			"fortigate_fortimanager_connection_status",
-			"Fortimanager status ID",
+			"Fortimanager status",
 			[]string{"vdom", "mode", "status"}, nil,
 		)
 		FortimanReg_id = prometheus.NewDesc(
 			"fortigate_fortimanager_registration_status",
-			"Fortimanager registration status ID",
+			"Fortimanager registration status",
 			[]string{"vdom", "mode", "status"}, nil,
 		)
 	)
